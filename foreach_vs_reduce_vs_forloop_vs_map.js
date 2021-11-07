@@ -325,3 +325,6 @@ const posts = [
 return item})
 
   console.log(arr)
+
+
+  
