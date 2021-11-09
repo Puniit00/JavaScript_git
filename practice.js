@@ -409,3 +409,97 @@ function fun(){
 
 fun();// in this case outerfunction will get called x will be initialized to zero
 //then inner function will be called so output will be one everytime
+
+console.log(_________________________________________________________________)
+//block scope
+{
+    let blocka=10;
+    const blockb=20;
+    var blockc=30
+
+    console.log(blocka);
+    console.log(blockb);
+    console.log(blockc);
+}
+    console.log(blockc);// will print 30 as it is global scoped
+    console.log(blocka);// will throw error as it is block scoped
+    console.log(blockb);// will throw error as it is block scope
+
+    console.log("______________________________________________________________")
+
+    //cosure with settimeout
+
+    function x(){
+        for(var i=1;i<=5; i++){
+            function close(x){
+                setTimeout(function y(){
+                    console.log(x)
+                },1000*x)
+            }
+            close(i);// it will make new copy of function close everytime
+        }
+    }
+    x();
+
+    function x(){
+        for(let i=1; i<=5;i++){
+            setTimeout(()=>{
+                console.log(i)
+            },1000*i)// will create a new block or copy of let everytime
+        }
+    }
+
+    x()
+
+    function x(){
+        for(var i=1; i<=5;i++){
+            setTimeout(()=>{
+                console.log(i)
+            },1000*i)// var has a global scope so it will change the global object
+            //everytime and loop will first run from i=1 to i=5 and change the
+            //value of i to 6
+        }
+    }
+
+    x();
+
+    console.log("________________________________________________________________")
+
+//function statement or function declaration
+function puneet(){
+
+}
+//function expression
+
+var exp= function (){
+
+}
+
+//anonymous function
+function (){
+
+}
+
+//named func expression
+var exp= function xyz(){
+    // a function expression with name is name func
+}
+
+// difference between parameter and argument
+function parameter(param1,param2){
+
+}
+
+parameter(argument1,argument2)
+
+//first class function or first class citizens
+//ability to be used as values
+
+function first(abc){
+    console.log(abc());
+}
+
+first(function(){
+    return 1;
+})// we are using function as a value here
+
