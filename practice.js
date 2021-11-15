@@ -503,3 +503,68 @@ first(function(){
     return 1;
 })// we are using function as a value here
 
+//return a function such that it can be called n times and return sum of n calls
+//for example fun(1)(2)(3)(4)() will return sum 10;
+const fun= function(a){
+    function inner(b){
+        if(b !== undefined){
+            return fun(a+b);
+        }
+        return a;
+    }
+    return inner
+}
+
+console.log(fun(2)(3)(4)())
+
+// create a function such that it can add any number or parameters passed to it
+// ex- fun(1,2,3,4) will return sum 10
+const arg= (...args)=>{
+    return args.reduce((acc,idx)=>{ return acc+idx},0);
+}
+
+console.log(arg(1,2));
+
+//create a function such that it will get sum of a+b+c doesn't matter how the function is called
+//ex sum(1,2,3)=sum(1)(2)(3)=sum(1,2)(3) =>6
+let sum = (a,b,c)=>{
+    if(arguments.length < 3){
+        if(arguments.length <2){
+            return (b)=>{
+                return (c)=>{
+                    return a+b+c;
+                }
+            }
+        }
+        else if(arguments.length=2){
+            return (c)=>{
+                return a+b+c;
+            }
+        }
+    }
+    else{
+        return a+b+c;
+    }
+}
+
+console.log(sum(1)(3)(3))
+
+//create a function such that it will get sum of n numbers doesn't matter how the function is called
+//ex sum(1,2,3)=sum(1)(2)(3)=sum(1,2)(3) =>6
+
+let sum= (...args1)=>{
+     function inner(...args2){
+         if(args2.length!==undefined){
+        return sum(...args1,...args2)}
+        else{
+            return;
+        }
+    }
+
+    const add= args1.reduce((a,b)=>{return a+b},0);
+    inner.value= add
+
+    return inner
+}
+
+console.log(sum(1,2,3,4)(5).value)
