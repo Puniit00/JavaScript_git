@@ -568,3 +568,44 @@ let sum= (...args1)=>{
 }
 
 console.log(sum(1,2,3,4)(5).value)
+
+//create a function such that it will get sum of n numbers doesn't matter how the function is called
+//ex sum(1,2,3)()=sum(1)(2)(3)()=sum(1,2)(3)() =>6
+
+let curried= (...args1)=>{
+    return function inner(...args2){
+        if(args2.length>0){
+            return curried(...args1,args2.reduce((a,b)=>{return a+b},0))
+        }
+        return args1.reduce((a,b)=>{return a+b},0);
+    }
+}
+
+console.log(curried(1,2,3)(2,3)(1)(2)(3)())
+
+// flat the nested object
+
+const obj= {"key":3,
+"foo":{
+    "a": 5,
+    "bar": {
+        "baz":8
+    }
+}}
+
+let flat= {};
+
+const flatten= (obj)=>{
+    for(key in obj){
+        if(typeof(obj[key])==='object' && obj[key] !== null){
+            flatten(obj[key])
+        }
+        else{
+            flat[key]= obj[key]
+        }
+    }
+}
+
+flatten(obj)
+console.log(flat)
+
